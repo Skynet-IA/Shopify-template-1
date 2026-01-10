@@ -1,2 +1,18 @@
 {{ 'overflow-list.css' | asset_url | preload_tag: as: 'style' }}
 {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
+
+<!-- TailwindCSS CDN for Urban Performance Lab Template -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<!-- Google Fonts for Urban Template -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Urban Performance Lab Custom Styles */
+  .urban-template { font-family: 'Inter', sans-serif; }
+  .urban-template .font-editorial { font-family: 'Playfair Display', serif; }
+  .urban-template .no-scrollbar::-webkit-scrollbar { display: none; }
+  .urban-template .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>

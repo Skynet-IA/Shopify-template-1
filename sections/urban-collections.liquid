@@ -1,0 +1,152 @@
+{% comment %}
+  Urban Performance Lab - Collections Section
+  Grid de colecciones con overlay
+{% endcomment %}
+
+<section id="collections" class="urban-template py-24 border-t border-neutral-100 bg-white text-neutral-900 antialiased">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="flex justify-between items-end mb-12">
+      <h2 class="text-3xl font-semibold tracking-tight">{{ section.settings.title | default: 'Curated Collections' }}</h2>
+      {%- if section.settings.view_all_link != blank -%}
+        <a href="{{ section.settings.view_all_link }}" class="text-sm font-medium text-neutral-500 hover:text-black flex items-center gap-1">
+          {{ section.settings.view_all_text | default: 'View all' }}
+          <iconify-icon icon="lucide:arrow-up-right" width="16" stroke-width="1.5"></iconify-icon>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'collection_card' -%}
+            <a href="{{ block.settings.link | default: '#' }}" class="group relative block aspect-[3/4] overflow-hidden rounded-lg bg-neutral-100" {{ block.shopify_attributes }}>
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 800 }}"
+                  alt="{{ block.settings.title }}"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                >
+              {%- elsif block.settings.collection != blank and block.settings.collection.featured_image != blank -%}
+                <img
+                  src="{{ block.settings.collection.featured_image | image_url: width: 800 }}"
+                  alt="{{ block.settings.collection.title }}"
+                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'collection-1' | placeholder_svg_tag: 'h-full w-full object-cover' }}
+              {%- endif -%}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+              <div class="absolute bottom-0 left-0 p-8">
+                <h3 class="text-white text-2xl font-medium tracking-tight mb-2">
+                  {%- if block.settings.title != blank -%}
+                    {{ block.settings.title }}
+                  {%- elsif block.settings.collection != blank -%}
+                    {{ block.settings.collection.title }}
+                  {%- else -%}
+                    Collection
+                  {%- endif -%}
+                </h3>
+                {%- if block.settings.subtitle != blank -%}
+                  <p class="text-white/80 text-sm">{{ block.settings.subtitle }}</p>
+                {%- endif -%}
+              </div>
+            </a>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Urban Collections",
+  "tag": "section",
+  "class": "urban-collections-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Curated Collections"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "Texto ver todo",
+      "default": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "Enlace ver todo"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection_card",
+      "name": "Collection Card",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Coleccion"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo personalizado",
+          "info": "Dejar vacio para usar el titulo de la coleccion"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitulo",
+          "default": "Everyday comfort & style."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen personalizada",
+          "info": "Dejar vacio para usar la imagen de la coleccion"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace personalizado",
+          "info": "Dejar vacio para enlazar a la coleccion"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Urban Collections",
+      "blocks": [
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Running",
+            "subtitle": "Distance, speed, and trail."
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Lifestyle",
+            "subtitle": "Everyday comfort & style."
+          }
+        },
+        {
+          "type": "collection_card",
+          "settings": {
+            "title": "Training",
+            "subtitle": "Gym, HIIT, and Crossfit."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,212 @@
+{% comment %}
+  Urban Performance Lab - Footer Section
+  Footer con columnas de links, redes sociales y copyright
+{% endcomment %}
+
+<footer class="urban-template bg-white pt-16 pb-8 border-t border-neutral-100 text-neutral-900 antialiased">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
+      <!-- Brand Column -->
+      <div class="col-span-2 lg:col-span-2">
+        <a href="{{ routes.root_url }}" class="uppercase block text-base font-semibold tracking-tighter mb-4">
+          {%- if section.settings.logo != blank -%}
+            <img
+              src="{{ section.settings.logo | image_url: width: 200 }}"
+              alt="{{ shop.name }}"
+              class="h-8 w-auto"
+            >
+          {%- else -%}
+            {{ section.settings.logo_text | default: shop.name }}
+          {%- endif -%}
+        </a>
+
+        {%- if section.settings.description != blank -%}
+          <p class="text-sm text-neutral-500 max-w-xs mb-6">
+            {{ section.settings.description }}
+          </p>
+        {%- endif -%}
+
+        <!-- Social Links -->
+        <div class="flex gap-4">
+          {%- if section.settings.social_instagram != blank -%}
+            <a href="{{ section.settings.social_instagram }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+              <iconify-icon icon="lucide:instagram" width="20"></iconify-icon>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_twitter != blank -%}
+            <a href="{{ section.settings.social_twitter }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+              <iconify-icon icon="lucide:twitter" width="20"></iconify-icon>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_youtube != blank -%}
+            <a href="{{ section.settings.social_youtube }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+              <iconify-icon icon="lucide:youtube" width="20"></iconify-icon>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_facebook != blank -%}
+            <a href="{{ section.settings.social_facebook }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+              <iconify-icon icon="lucide:facebook" width="20"></iconify-icon>
+            </a>
+          {%- endif -%}
+          {%- if section.settings.social_tiktok != blank -%}
+            <a href="{{ section.settings.social_tiktok }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+              <iconify-icon icon="simple-icons:tiktok" width="18"></iconify-icon>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      <!-- Menu Columns -->
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'menu_column' -%}
+            <div {{ block.shopify_attributes }}>
+              <h4 class="font-medium text-sm mb-4">{{ block.settings.title }}</h4>
+              {%- if block.settings.menu != blank -%}
+                <ul class="space-y-2 text-sm text-neutral-500">
+                  {%- for link in linklists[block.settings.menu].links -%}
+                    <li>
+                      <a href="{{ link.url }}" class="hover:text-black transition-colors">{{ link.title }}</a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="border-t border-neutral-100 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <p class="text-xs text-neutral-400">
+        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}
+      </p>
+
+      {%- if section.settings.disclaimer != blank -%}
+        <div class="text-xs text-neutral-400 max-w-xl md:text-right">
+          {{ section.settings.disclaimer }}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Urban Footer",
+  "tag": "section",
+  "class": "urban-footer-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Branding"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Texto del logo",
+      "default": "Urban Performance Lab"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripcion",
+      "default": "Bridging the gap between performance technology and lifestyle aesthetics. Your ultimate guide to quality products."
+    },
+    {
+      "type": "header",
+      "content": "Redes Sociales"
+    },
+    {
+      "type": "url",
+      "id": "social_instagram",
+      "label": "Instagram"
+    },
+    {
+      "type": "url",
+      "id": "social_twitter",
+      "label": "Twitter/X"
+    },
+    {
+      "type": "url",
+      "id": "social_youtube",
+      "label": "YouTube"
+    },
+    {
+      "type": "url",
+      "id": "social_facebook",
+      "label": "Facebook"
+    },
+    {
+      "type": "url",
+      "id": "social_tiktok",
+      "label": "TikTok"
+    },
+    {
+      "type": "header",
+      "content": "Copyright"
+    },
+    {
+      "type": "text",
+      "id": "copyright_text",
+      "label": "Texto de copyright",
+      "default": "All rights reserved."
+    },
+    {
+      "type": "textarea",
+      "id": "disclaimer",
+      "label": "Disclaimer",
+      "default": "We are a participant in affiliate programs. We earn a commission from qualifying purchases made through links on this site at no extra cost to you."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "menu_column",
+      "name": "Menu Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo",
+          "default": "Shop"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Urban Footer",
+      "blocks": [
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Content"
+          }
+        },
+        {
+          "type": "menu_column",
+          "settings": {
+            "title": "Legal"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

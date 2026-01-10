@@ -1,0 +1,182 @@
+{% comment %}
+  Urban Performance Lab - Blog/Guides Section
+  Grid de articulos del blog
+{% endcomment %}
+
+<section id="guides" class="urban-template py-24 border-b border-neutral-100 bg-white text-neutral-900 antialiased">
+  <div class="max-w-7xl mx-auto px-6">
+    <h2 class="text-3xl font-semibold tracking-tight mb-12">{{ section.settings.title | default: 'Style & Performance Guides' }}</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {%- if section.settings.blog != blank -%}
+        {%- for article in section.settings.blog.articles limit: section.settings.articles_limit -%}
+          <article class="flex flex-col group cursor-pointer">
+            <a href="{{ article.url }}" class="overflow-hidden rounded-lg mb-4 aspect-video bg-neutral-100 block">
+              {%- if article.image != blank -%}
+                <img
+                  src="{{ article.image | image_url: width: 800 }}"
+                  alt="{{ article.title }}"
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+              {%- endif -%}
+            </a>
+            <div class="flex items-center gap-3 text-xs text-neutral-500 mb-2">
+              {%- if article.tags.size > 0 -%}
+                <span class="bg-neutral-100 px-2 py-0.5 rounded text-neutral-900 font-medium">{{ article.tags.first }}</span>
+              {%- endif -%}
+              <span>{{ article.content | strip_html | split: ' ' | size | divided_by: 200 | plus: 1 }} min read</span>
+            </div>
+            <a href="{{ article.url }}">
+              <h3 class="text-lg font-medium tracking-tight mb-2 group-hover:text-neutral-600 transition-colors">{{ article.title }}</h3>
+            </a>
+            <p class="text-sm text-neutral-500 line-clamp-2">{{ article.excerpt_or_content | strip_html | truncate: 150 }}</p>
+          </article>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'article_card' -%}
+              <article class="flex flex-col group cursor-pointer" {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link | default: '#' }}" class="overflow-hidden rounded-lg mb-4 aspect-video bg-neutral-100 block">
+                  {%- if block.settings.image != blank -%}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 800 }}"
+                      alt="{{ block.settings.title }}"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                  {%- endif -%}
+                </a>
+                <div class="flex items-center gap-3 text-xs text-neutral-500 mb-2">
+                  {%- if block.settings.tag != blank -%}
+                    <span class="bg-neutral-100 px-2 py-0.5 rounded text-neutral-900 font-medium">{{ block.settings.tag }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.read_time != blank -%}
+                    <span>{{ block.settings.read_time }}</span>
+                  {%- endif -%}
+                </div>
+                <a href="{{ block.settings.link | default: '#' }}">
+                  <h3 class="text-lg font-medium tracking-tight mb-2 group-hover:text-neutral-600 transition-colors">{{ block.settings.title }}</h3>
+                </a>
+                {%- if block.settings.description != blank -%}
+                  <p class="text-sm text-neutral-500 line-clamp-2">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </article>
+          {%- endcase -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Urban Blog",
+  "tag": "section",
+  "class": "urban-blog-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Style & Performance Guides"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Selecciona un blog para mostrar articulos automaticamente"
+    },
+    {
+      "type": "range",
+      "id": "articles_limit",
+      "label": "Numero de articulos",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "article_card",
+      "name": "Article Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen"
+        },
+        {
+          "type": "text",
+          "id": "tag",
+          "label": "Etiqueta",
+          "default": "Guide"
+        },
+        {
+          "type": "text",
+          "id": "read_time",
+          "label": "Tiempo de lectura",
+          "default": "5 min read"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo",
+          "default": "Article Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Descripcion",
+          "default": "A brief description of the article content goes here."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Urban Blog",
+      "blocks": [
+        {
+          "type": "article_card",
+          "settings": {
+            "tag": "Training",
+            "read_time": "5 min read",
+            "title": "Best Shoes for HIIT Workouts in 2024",
+            "description": "Stability is key when jumping and lifting. We break down the top models for your gym routine."
+          }
+        },
+        {
+          "type": "article_card",
+          "settings": {
+            "tag": "Running",
+            "read_time": "8 min read",
+            "title": "Beginner's Guide to Running Gear",
+            "description": "Starting your running journey? Here's exactly what you need to hit the pavement comfortably."
+          }
+        },
+        {
+          "type": "article_card",
+          "settings": {
+            "tag": "Style",
+            "read_time": "4 min read",
+            "title": "How to Style Sneakers for Everyday Wear",
+            "description": "Elevate your street style. Tips on pairing chunky silhouettes with modern denim and cargo trousers."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

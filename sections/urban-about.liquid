@@ -1,0 +1,109 @@
+{% comment %}
+  Urban Performance Lab - About Section
+  Seccion sobre la marca con estadisticas
+{% endcomment %}
+
+<section id="about" class="urban-template py-24 bg-neutral-50 text-neutral-900 antialiased">
+  <div class="max-w-3xl mx-auto px-6 text-center">
+    {%- if section.settings.icon != blank -%}
+      <iconify-icon icon="{{ section.settings.icon }}" width="32" class="text-neutral-900 mb-6 mx-auto block"></iconify-icon>
+    {%- endif -%}
+
+    <h2 class="text-3xl font-semibold tracking-tight mb-6">{{ section.settings.title | default: 'Built for the Obsessed' }}</h2>
+
+    {%- if section.settings.description != blank -%}
+      <p class="leading-loose text-neutral-500 mb-8">{{ section.settings.description }}</p>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="flex justify-center gap-8 flex-wrap text-neutral-900">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+            {%- when 'stat' -%}
+              <div class="flex flex-col items-center" {{ block.shopify_attributes }}>
+                <span class="text-2xl font-bold tracking-tight">{{ block.settings.value }}</span>
+                <span class="text-xs uppercase tracking-widest text-neutral-500 mt-1">{{ block.settings.label }}</span>
+              </div>
+          {%- endcase -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Urban About",
+  "tag": "section",
+  "class": "urban-about-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "icon",
+      "label": "Icono (Iconify)",
+      "default": "lucide:activity",
+      "info": "Usa iconos de https://icon-sets.iconify.design/"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "Built for the Obsessed"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripcion",
+      "default": "We are a digital destination dedicated to dissecting the engineering and design behind the world's leading brands. We are enthusiasts, athletes, and curators committed to helping you find the perfect gear for your pursuit of excellence."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Estadistica",
+      "settings": [
+        {
+          "type": "text",
+          "id": "value",
+          "label": "Valor",
+          "default": "500+"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Reviews"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Urban About",
+      "blocks": [
+        {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Reviews"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Independent"
+          }
+        },
+        {
+          "type": "stat",
+          "settings": {
+            "value": "24/7",
+            "label": "Updates"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

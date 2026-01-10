@@ -1,0 +1,249 @@
+{
+  "sections": {
+    "urban-header": {
+      "type": "urban-header",
+      "settings": {
+        "logo_text": "Urban Performance Lab",
+        "show_search": true,
+        "show_cart": true,
+        "cta_label": "Top Picks",
+        "cta_link": ""
+      },
+      "blocks": {
+        "menu-1": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Collections",
+            "link": "#collections"
+          }
+        },
+        "menu-2": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Reviews",
+            "link": "#reviews"
+          }
+        },
+        "menu-3": {
+          "type": "menu_link",
+          "settings": {
+            "label": "Guides",
+            "link": "#guides"
+          }
+        },
+        "menu-4": {
+          "type": "menu_link",
+          "settings": {
+            "label": "About",
+            "link": "#about"
+          }
+        }
+      },
+      "block_order": ["menu-1", "menu-2", "menu-3", "menu-4"]
+    },
+    "urban-hero": {
+      "type": "urban-hero",
+      "settings": {
+        "subtitle": "Curated Performance",
+        "title": "Performance Meets Everyday Style.",
+        "description": "Explore the finest selection of footwear and apparel. Expert reviews, styling guides, and performance insights for the modern athlete.",
+        "button_label": "Shop Collection",
+        "button_link": "",
+        "button_label_2": "Read Reviews",
+        "button_link_2": "#reviews",
+        "disclaimer": "*We independently review products. We may earn a commission from affiliate links.",
+        "image_badge": "Featured: New Collection",
+        "image_filter": "grayscale hover:grayscale-0"
+      }
+    },
+    "urban-collections": {
+      "type": "urban-collections",
+      "settings": {
+        "title": "Curated Collections",
+        "view_all_text": "View all",
+        "view_all_link": ""
+      },
+      "blocks": {
+        "collection-1": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Running",
+            "subtitle": "Distance, speed, and trail."
+          }
+        },
+        "collection-2": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Lifestyle",
+            "subtitle": "Everyday comfort & style."
+          }
+        },
+        "collection-3": {
+          "type": "collection_card",
+          "settings": {
+            "title": "Training",
+            "subtitle": "Gym, HIIT, and Crossfit."
+          }
+        }
+      },
+      "block_order": ["collection-1", "collection-2", "collection-3"]
+    },
+    "urban-products": {
+      "type": "urban-products",
+      "settings": {
+        "subtitle": "This Week's Drops",
+        "title": "Latest Arrivals",
+        "description": "Hand-picked selections from our latest collection.",
+        "products_limit": 4,
+        "view_all_text": "Browse full catalogue",
+        "view_all_link": ""
+      }
+    },
+    "urban-review": {
+      "type": "urban-review",
+      "settings": {
+        "title": "The Daily Driver: Product Review",
+        "description": "We put this product to the test to see if it lives up to the hype. Here's our in-depth review and analysis.",
+        "rating": 4.5,
+        "badge": "Editor's Choice",
+        "button_label": "Read Full Review",
+        "button_link": "",
+        "button_label_2": "View Product",
+        "button_link_2": ""
+      },
+      "blocks": {
+        "rating-1": {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Comfort",
+            "score": 9.5
+          }
+        },
+        "rating-2": {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Durability",
+            "score": 8.8
+          }
+        },
+        "rating-3": {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Responsiveness",
+            "score": 8.2
+          }
+        }
+      },
+      "block_order": ["rating-1", "rating-2", "rating-3"]
+    },
+    "urban-blog": {
+      "type": "urban-blog",
+      "settings": {
+        "title": "Style & Performance Guides",
+        "articles_limit": 3
+      },
+      "blocks": {
+        "article-1": {
+          "type": "article_card",
+          "settings": {
+            "tag": "Training",
+            "read_time": "5 min read",
+            "title": "Best Shoes for HIIT Workouts in 2024",
+            "description": "Stability is key when jumping and lifting. We break down the top models for your gym routine."
+          }
+        },
+        "article-2": {
+          "type": "article_card",
+          "settings": {
+            "tag": "Running",
+            "read_time": "8 min read",
+            "title": "Beginner's Guide to Running Gear",
+            "description": "Starting your running journey? Here's exactly what you need to hit the pavement comfortably."
+          }
+        },
+        "article-3": {
+          "type": "article_card",
+          "settings": {
+            "tag": "Style",
+            "read_time": "4 min read",
+            "title": "How to Style Sneakers for Everyday Wear",
+            "description": "Elevate your street style. Tips on pairing chunky silhouettes with modern denim and cargo trousers."
+          }
+        }
+      },
+      "block_order": ["article-1", "article-2", "article-3"]
+    },
+    "urban-about": {
+      "type": "urban-about",
+      "settings": {
+        "icon": "lucide:activity",
+        "title": "Built for the Obsessed",
+        "description": "We are a digital destination dedicated to dissecting the engineering and design behind the world's leading brands. We are enthusiasts, athletes, and curators committed to helping you find the perfect gear for your pursuit of excellence."
+      },
+      "blocks": {
+        "stat-1": {
+          "type": "stat",
+          "settings": {
+            "value": "500+",
+            "label": "Reviews"
+          }
+        },
+        "stat-2": {
+          "type": "stat",
+          "settings": {
+            "value": "100%",
+            "label": "Independent"
+          }
+        },
+        "stat-3": {
+          "type": "stat",
+          "settings": {
+            "value": "24/7",
+            "label": "Updates"
+          }
+        }
+      },
+      "block_order": ["stat-1", "stat-2", "stat-3"]
+    },
+    "urban-footer": {
+      "type": "urban-footer",
+      "settings": {
+        "logo_text": "Urban Performance Lab",
+        "description": "Bridging the gap between performance technology and lifestyle aesthetics. Your ultimate guide to quality products.",
+        "copyright_text": "All rights reserved.",
+        "disclaimer": "We are a participant in affiliate programs. We earn a commission from qualifying purchases made through links on this site at no extra cost to you."
+      },
+      "blocks": {
+        "menu-col-1": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Shop"
+          }
+        },
+        "menu-col-2": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Content"
+          }
+        },
+        "menu-col-3": {
+          "type": "menu_column",
+          "settings": {
+            "title": "Legal"
+          }
+        }
+      },
+      "block_order": ["menu-col-1", "menu-col-2", "menu-col-3"]
+    }
+  },
+  "order": [
+    "urban-header",
+    "urban-hero",
+    "urban-collections",
+    "urban-products",
+    "urban-review",
+    "urban-blog",
+    "urban-about",
+    "urban-footer"
+  ]
+}

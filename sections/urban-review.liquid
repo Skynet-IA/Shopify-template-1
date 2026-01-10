@@ -1,0 +1,234 @@
+{% comment %}
+  Urban Performance Lab - Review Feature Section
+  Reseña destacada con ratings y barras de progreso
+{% endcomment %}
+
+<section id="reviews" class="urban-template py-24 bg-white text-neutral-900 antialiased">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="bg-neutral-950 rounded-2xl overflow-hidden text-white">
+      <div class="grid grid-cols-1 lg:grid-cols-2">
+        <div class="relative h-96 lg:h-auto bg-neutral-800">
+          {%- if section.settings.background_image != blank -%}
+            <img
+              src="{{ section.settings.background_image | image_url: width: 1000 }}"
+              alt="{{ section.settings.title }}"
+              class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay"
+              loading="lazy"
+            >
+          {%- endif -%}
+          <div class="absolute inset-0 flex items-center justify-center">
+            {%- if section.settings.product_image != blank -%}
+              <img
+                src="{{ section.settings.product_image | image_url: width: 800 }}"
+                alt="{{ section.settings.title }}"
+                class="w-3/4 object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+              >
+            {%- elsif section.settings.product != blank and section.settings.product.featured_image != blank -%}
+              <img
+                src="{{ section.settings.product.featured_image | image_url: width: 800 }}"
+                alt="{{ section.settings.product.title }}"
+                class="w-3/4 object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'product-1' | placeholder_svg_tag: 'w-3/4 object-contain drop-shadow-2xl' }}
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="lg:p-16 flex flex-col pt-12 pr-12 pb-12 pl-12 justify-center">
+          <!-- Rating Stars -->
+          <div class="flex items-center gap-2 mb-6">
+            {%- assign full_stars = section.settings.rating | floor -%}
+            {%- assign has_half_star = section.settings.rating | modulo: 1 | times: 10 | floor -%}
+
+            {%- for i in (1..5) -%}
+              {%- if i <= full_stars -%}
+                <iconify-icon icon="lucide:star" class="text-yellow-500" width="16"></iconify-icon>
+              {%- elsif i == full_stars | plus: 1 and has_half_star >= 5 -%}
+                <iconify-icon icon="lucide:star-half" class="text-yellow-500" width="16"></iconify-icon>
+              {%- else -%}
+                <iconify-icon icon="lucide:star" class="text-neutral-600" width="16"></iconify-icon>
+              {%- endif -%}
+            {%- endfor -%}
+
+            {%- if section.settings.badge != blank -%}
+              <span class="text-xs font-medium text-neutral-400 ml-2">{{ section.settings.badge }}</span>
+            {%- endif -%}
+          </div>
+
+          <h2 class="md:text-4xl text-3xl font-semibold tracking-tight mb-6">
+            {{ section.settings.title | default: "Product Review" }}
+          </h2>
+
+          {%- if section.settings.description != blank -%}
+            <p class="text-neutral-400 leading-relaxed mb-8 font-light">
+              {{ section.settings.description }}
+            </p>
+          {%- endif -%}
+
+          <!-- Rating Bars -->
+          <div class="space-y-4 mb-10">
+            {%- for block in section.blocks -%}
+              {%- case block.type -%}
+                {%- when 'rating_bar' -%}
+                  <div {{ block.shopify_attributes }}>
+                    <div class="flex justify-between text-xs uppercase tracking-wider text-neutral-500 mb-1">
+                      <span>{{ block.settings.label }}</span>
+                      <span>{{ block.settings.score }}/10</span>
+                    </div>
+                    <div class="h-1 w-full bg-neutral-800 rounded-full overflow-hidden">
+                      {%- assign bar_width = block.settings.score | times: 10 -%}
+                      <div class="h-full bg-white" style="width: {{ bar_width }}%"></div>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            {%- endfor -%}
+          </div>
+
+          <div class="flex gap-4 flex-wrap">
+            {%- if section.settings.button_label != blank -%}
+              <a href="{{ section.settings.button_link }}" class="bg-white text-black px-6 py-3 rounded-md text-sm font-medium hover:bg-neutral-200 transition-colors">
+                {{ section.settings.button_label }}
+              </a>
+            {%- endif -%}
+
+            {%- if section.settings.button_label_2 != blank -%}
+              <a href="{{ section.settings.button_link_2 | default: section.settings.product.url }}" class="px-6 py-3 rounded-md text-sm font-medium text-neutral-300 hover:text-white transition-colors border border-neutral-700 hover:border-neutral-500">
+                {{ section.settings.button_label_2 }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Urban Review",
+  "tag": "section",
+  "class": "urban-review-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Producto"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titulo",
+      "default": "The Daily Driver: Product Review"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descripcion",
+      "default": "We put this product to the test to see if it lives up to the hype. Here's our in-depth review and analysis."
+    },
+    {
+      "type": "range",
+      "id": "rating",
+      "label": "Rating (estrellas)",
+      "min": 1,
+      "max": 5,
+      "step": 0.5,
+      "default": 4.5
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Editor's Choice"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Imagen de fondo"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Imagen del producto",
+      "info": "Dejar vacio para usar imagen del producto seleccionado"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto boton primario",
+      "default": "Read Full Review"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Enlace boton primario"
+    },
+    {
+      "type": "text",
+      "id": "button_label_2",
+      "label": "Texto boton secundario",
+      "default": "View Product"
+    },
+    {
+      "type": "url",
+      "id": "button_link_2",
+      "label": "Enlace boton secundario",
+      "info": "Dejar vacio para enlazar al producto"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "rating_bar",
+      "name": "Rating Bar",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Etiqueta",
+          "default": "Quality"
+        },
+        {
+          "type": "range",
+          "id": "score",
+          "label": "Puntuacion",
+          "min": 1,
+          "max": 10,
+          "step": 0.1,
+          "default": 8.5
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Urban Review",
+      "blocks": [
+        {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Comfort",
+            "score": 9.5
+          }
+        },
+        {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Durability",
+            "score": 8.8
+          }
+        },
+        {
+          "type": "rating_bar",
+          "settings": {
+            "label": "Responsiveness",
+            "score": 8.2
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
