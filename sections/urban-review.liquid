@@ -48,11 +48,12 @@
           <div class="flex items-center gap-2 mb-6">
             {%- assign full_stars = section.settings.rating | floor -%}
             {%- assign has_half_star = section.settings.rating | modulo: 1 | times: 10 | floor -%}
+            {%- assign half_star_position = full_stars | plus: 1 -%}
 
             {%- for i in (1..5) -%}
               {%- if i <= full_stars -%}
                 <iconify-icon icon="lucide:star" class="text-yellow-500" width="16"></iconify-icon>
-              {%- elsif i == full_stars | plus: 1 and has_half_star >= 5 -%}
+              {%- elsif i == half_star_position and has_half_star >= 5 -%}
                 <iconify-icon icon="lucide:star-half" class="text-yellow-500" width="16"></iconify-icon>
               {%- else -%}
                 <iconify-icon icon="lucide:star" class="text-neutral-600" width="16"></iconify-icon>
