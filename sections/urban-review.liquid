@@ -12,6 +12,8 @@
             <img
               src="{{ section.settings.background_image | image_url: width: 1000 }}"
               alt="{{ section.settings.title }}"
+              width="{{ section.settings.background_image.width }}"
+              height="{{ section.settings.background_image.height }}"
               class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay"
               loading="lazy"
             >
@@ -21,6 +23,8 @@
               <img
                 src="{{ section.settings.product_image | image_url: width: 800 }}"
                 alt="{{ section.settings.title }}"
+                width="{{ section.settings.product_image.width }}"
+                height="{{ section.settings.product_image.height }}"
                 class="w-3/4 object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               >
@@ -28,6 +32,8 @@
               <img
                 src="{{ section.settings.product.featured_image | image_url: width: 800 }}"
                 alt="{{ section.settings.product.title }}"
+                width="{{ section.settings.product.featured_image.width }}"
+                height="{{ section.settings.product.featured_image.height }}"
                 class="w-3/4 object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
                 loading="lazy"
               >

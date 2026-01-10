@@ -11,6 +11,8 @@
         <img
           src="{{ section.settings.logo | image_url: width: 200 }}"
           alt="{{ shop.name }}"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
           class="h-8 w-auto"
         >
       {%- else -%}

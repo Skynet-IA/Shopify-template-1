@@ -33,6 +33,8 @@
                 <img
                   src="{{ block.settings.image | image_url: width: 800 }}"
                   alt="{{ block.settings.title }}"
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}"
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 >
@@ -40,6 +42,8 @@
                 <img
                   src="{{ block.settings.collection.featured_image | image_url: width: 800 }}"
                   alt="{{ block.settings.collection.title }}"
+                  width="{{ block.settings.collection.featured_image.width }}"
+                  height="{{ block.settings.collection.featured_image.height }}"
                   class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 >

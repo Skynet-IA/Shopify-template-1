@@ -16,6 +16,8 @@
                 <img
                   src="{{ article.image | image_url: width: 800 }}"
                   alt="{{ article.title }}"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
                   class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   loading="lazy"
                 >
@@ -45,6 +47,8 @@
                     <img
                       src="{{ block.settings.image | image_url: width: 800 }}"
                       alt="{{ block.settings.title }}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
                       class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     >
