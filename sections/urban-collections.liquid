@@ -19,7 +19,16 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'collection_card' -%}
-            <a href="{{ block.settings.link | default: '#' }}" class="group relative block aspect-[3/4] overflow-hidden rounded-lg bg-neutral-100" {{ block.shopify_attributes }}>
+            {%- liquid
+              if block.settings.link != blank
+                assign card_url = block.settings.link
+              elsif block.settings.collection != blank
+                assign card_url = block.settings.collection.url
+              else
+                assign card_url = '#'
+              endif
+            -%}
+            <a href="{{ card_url }}" class="group relative block aspect-[3/4] overflow-hidden rounded-lg bg-neutral-100" {{ block.shopify_attributes }}>
               {%- if block.settings.image != blank -%}
                 <img
                   src="{{ block.settings.image | image_url: width: 800 }}"

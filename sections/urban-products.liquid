@@ -22,6 +22,8 @@
             <div class="relative aspect-square bg-white rounded-lg border border-neutral-200 overflow-hidden mb-4">
               {%- if forloop.first -%}
                 <div class="absolute top-3 left-3 bg-black text-white text-[10px] uppercase font-bold px-2 py-1 rounded-sm z-10">New</div>
+              {%- elsif forloop.last and section.settings.products_limit > 2 -%}
+                <div class="absolute top-3 left-3 bg-neutral-100 text-neutral-600 text-[10px] uppercase font-bold px-2 py-1 rounded-sm z-10">Trending</div>
               {%- endif -%}
 
               {%- if product.featured_image != blank -%}
