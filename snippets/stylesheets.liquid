@@ -2,17 +2,196 @@
 {{ 'base.css' | asset_url | stylesheet_tag: preload: true }}
 
 <!-- TailwindCSS CDN for Urban Performance Lab Template -->
-<script src="https://cdn.tailwindcss.com" defer></script>
-<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js" defer></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    important: '.urban-template',
+    theme: {
+      extend: {}
+    }
+  }
+</script>
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 
 <!-- Google Fonts for Urban Template -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Urban Performance Lab Custom Styles */
-  .urban-template { font-family: 'Inter', sans-serif; }
-  .urban-template .font-editorial { font-family: 'Playfair Display', serif; }
-  .urban-template .no-scrollbar::-webkit-scrollbar { display: none; }
-  .urban-template .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  /* Urban Performance Lab - Reset & Custom Styles */
+
+  /* Reset Horizon styles for Urban sections */
+  .urban-template,
+  .urban-template * {
+    box-sizing: border-box;
+  }
+
+  .urban-template {
+    font-family: 'Inter', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: rgb(23 23 23) !important;
+  }
+
+  .urban-template img {
+    width: auto;
+    max-width: 100%;
+  }
+
+  .urban-template h1,
+  .urban-template .font-editorial {
+    font-family: 'Playfair Display', serif !important;
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Selection styles */
+  .urban-template ::selection {
+    background-color: rgb(229 229 229);
+    color: black;
+  }
+
+  /* Hide scrollbar */
+  .urban-template .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .urban-template .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Line clamp */
+  .urban-template .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Force transitions to work */
+  .urban-template .transition-all {
+    transition-property: all !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-duration: 150ms !important;
+  }
+
+  .urban-template .transition-colors {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-duration: 150ms !important;
+  }
+
+  .urban-template .transition-transform {
+    transition-property: transform !important;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition-duration: 150ms !important;
+  }
+
+  .urban-template .duration-300 {
+    transition-duration: 300ms !important;
+  }
+
+  .urban-template .duration-500 {
+    transition-duration: 500ms !important;
+  }
+
+  .urban-template .duration-700 {
+    transition-duration: 700ms !important;
+  }
+
+  /* Hover effects */
+  .urban-template .group:hover .group-hover\:scale-105 {
+    transform: scale(1.05) !important;
+  }
+
+  .urban-template .hover\:scale-105:hover {
+    transform: scale(1.05) !important;
+  }
+
+  .urban-template .hover\:bg-neutral-800:hover {
+    background-color: rgb(38 38 38) !important;
+  }
+
+  .urban-template .hover\:bg-neutral-200:hover {
+    background-color: rgb(229 229 229) !important;
+  }
+
+  .urban-template .hover\:bg-neutral-50:hover {
+    background-color: rgb(250 250 250) !important;
+  }
+
+  .urban-template .hover\:text-black:hover {
+    color: rgb(0 0 0) !important;
+  }
+
+  .urban-template .hover\:text-neutral-600:hover {
+    color: rgb(82 82 82) !important;
+  }
+
+  .urban-template .hover\:text-white:hover {
+    color: rgb(255 255 255) !important;
+  }
+
+  .urban-template .hover\:border-neutral-300:hover {
+    border-color: rgb(212 212 212) !important;
+  }
+
+  .urban-template .hover\:border-neutral-500:hover {
+    border-color: rgb(115 115 115) !important;
+  }
+
+  .urban-template .hover\:border-black:hover {
+    border-color: rgb(0 0 0) !important;
+  }
+
+  /* Grayscale effects */
+  .urban-template .grayscale {
+    filter: grayscale(100%) !important;
+  }
+
+  .urban-template .hover\:grayscale-0:hover {
+    filter: grayscale(0%) !important;
+  }
+
+  /* Backdrop blur */
+  .urban-template .backdrop-blur-md {
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+  }
+
+  .urban-template .backdrop-blur {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+  }
+
+  /* Background opacity */
+  .urban-template .bg-white\/80 {
+    background-color: rgb(255 255 255 / 0.8) !important;
+  }
+
+  .urban-template .bg-white\/90 {
+    background-color: rgb(255 255 255 / 0.9) !important;
+  }
+
+  .urban-template .bg-neutral-50\/50 {
+    background-color: rgb(250 250 250 / 0.5) !important;
+  }
+
+  /* Z-index for fixed header */
+  .urban-template.fixed {
+    z-index: 9999 !important;
+  }
+
+  /* Drop shadow */
+  .urban-template .drop-shadow-2xl {
+    filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15)) !important;
+  }
+
+  /* Mix blend */
+  .urban-template .mix-blend-overlay {
+    mix-blend-mode: overlay !important;
+  }
 </style>

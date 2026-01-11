@@ -1,9 +1,9 @@
 {% comment %}
   Urban Performance Lab - Footer Section
-  Footer con columnas de links, redes sociales y copyright
+  Pixel-perfect replica of plantilla.html footer
 {% endcomment %}
 
-<footer class="urban-template bg-white pt-16 pb-8 border-t border-neutral-100 text-neutral-900 antialiased">
+<footer class="urban-template bg-white pt-16 pb-8 border-t border-neutral-100 text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black">
   <div class="max-w-7xl mx-auto px-6">
     <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-16">
       <!-- Brand Column -->
@@ -30,29 +30,47 @@
 
         <!-- Social Links -->
         <div class="flex gap-4">
-          {%- if section.settings.social_instagram != blank -%}
-            <a href="{{ section.settings.social_instagram }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
-              <iconify-icon icon="lucide:instagram" width="20"></iconify-icon>
-            </a>
+          {%- assign has_social = false -%}
+          {%- if section.settings.social_instagram != blank or section.settings.social_twitter != blank or section.settings.social_youtube != blank or section.settings.social_facebook != blank or section.settings.social_tiktok != blank -%}
+            {%- assign has_social = true -%}
           {%- endif -%}
-          {%- if section.settings.social_twitter != blank -%}
-            <a href="{{ section.settings.social_twitter }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
-              <iconify-icon icon="lucide:twitter" width="20"></iconify-icon>
+
+          {%- if has_social -%}
+            {%- if section.settings.social_instagram != blank -%}
+              <a href="{{ section.settings.social_instagram }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+                <iconify-icon icon="lucide:instagram" width="20" class=""></iconify-icon>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_twitter != blank -%}
+              <a href="{{ section.settings.social_twitter }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+                <iconify-icon icon="lucide:twitter" width="20" class=""></iconify-icon>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_youtube != blank -%}
+              <a href="{{ section.settings.social_youtube }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+                <iconify-icon icon="lucide:youtube" width="20" class=""></iconify-icon>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_facebook != blank -%}
+              <a href="{{ section.settings.social_facebook }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+                <iconify-icon icon="lucide:facebook" width="20" class=""></iconify-icon>
+              </a>
+            {%- endif -%}
+            {%- if section.settings.social_tiktok != blank -%}
+              <a href="{{ section.settings.social_tiktok }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
+                <iconify-icon icon="simple-icons:tiktok" width="18"></iconify-icon>
+              </a>
+            {%- endif -%}
+          {%- else -%}
+            <!-- Default social icons matching plantilla.html -->
+            <a href="#" class="text-neutral-400 hover:text-black transition-colors">
+              <iconify-icon icon="lucide:instagram" width="20" class=""></iconify-icon>
             </a>
-          {%- endif -%}
-          {%- if section.settings.social_youtube != blank -%}
-            <a href="{{ section.settings.social_youtube }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
-              <iconify-icon icon="lucide:youtube" width="20"></iconify-icon>
+            <a href="#" class="text-neutral-400 hover:text-black transition-colors">
+              <iconify-icon icon="lucide:twitter" width="20" class=""></iconify-icon>
             </a>
-          {%- endif -%}
-          {%- if section.settings.social_facebook != blank -%}
-            <a href="{{ section.settings.social_facebook }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
-              <iconify-icon icon="lucide:facebook" width="20"></iconify-icon>
-            </a>
-          {%- endif -%}
-          {%- if section.settings.social_tiktok != blank -%}
-            <a href="{{ section.settings.social_tiktok }}" class="text-neutral-400 hover:text-black transition-colors" target="_blank" rel="noopener">
-              <iconify-icon icon="simple-icons:tiktok" width="18"></iconify-icon>
+            <a href="#" class="text-neutral-400 hover:text-black transition-colors">
+              <iconify-icon icon="lucide:youtube" width="20" class=""></iconify-icon>
             </a>
           {%- endif -%}
         </div>
@@ -62,12 +80,12 @@
       {%- for block in section.blocks -%}
         {%- case block.type -%}
           {%- when 'menu_column' -%}
-            <div {{ block.shopify_attributes }}>
+            <div class="" {{ block.shopify_attributes }}>
               <h4 class="font-medium text-sm mb-4">{{ block.settings.title }}</h4>
               {%- if block.settings.menu != blank -%}
                 <ul class="space-y-2 text-sm text-neutral-500">
                   {%- for link in linklists[block.settings.menu].links -%}
-                    <li>
+                    <li class="">
                       <a href="{{ link.url }}" class="hover:text-black transition-colors">{{ link.title }}</a>
                     </li>
                   {%- endfor -%}
@@ -81,7 +99,7 @@
     <!-- Bottom Bar -->
     <div class="border-t border-neutral-100 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
       <p class="text-xs text-neutral-400">
-        &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}
+        &copy; {{ 'now' | date: '%Y' }} {{ section.settings.copyright_name | default: shop.name }}. {{ section.settings.copyright_text | default: 'All rights reserved.' }}
       </p>
 
       {%- if section.settings.disclaimer != blank -%}
@@ -118,7 +136,7 @@
       "type": "textarea",
       "id": "description",
       "label": "Descripcion",
-      "default": "Bridging the gap between performance technology and lifestyle aesthetics. Your ultimate guide to quality products."
+      "default": "Bridging the gap between performance technology and lifestyle aesthetics. Your ultimate guide to the swoosh."
     },
     {
       "type": "header",
@@ -155,6 +173,12 @@
     },
     {
       "type": "text",
+      "id": "copyright_name",
+      "label": "Nombre copyright",
+      "default": "NK Archive"
+    },
+    {
+      "type": "text",
       "id": "copyright_text",
       "label": "Texto de copyright",
       "default": "All rights reserved."
@@ -163,7 +187,7 @@
       "type": "textarea",
       "id": "disclaimer",
       "label": "Disclaimer",
-      "default": "We are a participant in affiliate programs. We earn a commission from qualifying purchases made through links on this site at no extra cost to you."
+      "default": "NK Archive is a participant in the Nike Affiliate Program. We earn a commission from qualifying purchases made through links on this site at no extra cost to you. This site is not officially affiliated with Nike Inc. All logos and trademarks property of their respective owners."
     }
   ],
   "blocks": [

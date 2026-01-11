@@ -1,9 +1,9 @@
 {% comment %}
   Urban Performance Lab - Review Feature Section
-  Reseña destacada con ratings y barras de progreso
+  Pixel-perfect replica of plantilla.html review section
 {% endcomment %}
 
-<section id="reviews" class="urban-template py-24 bg-white text-neutral-900 antialiased">
+<section id="reviews" class="urban-template py-24 bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black">
   <div class="max-w-7xl mx-auto px-6">
     <div class="bg-neutral-950 rounded-2xl overflow-hidden text-white">
       <div class="grid grid-cols-1 lg:grid-cols-2">
@@ -14,6 +14,15 @@
               alt="{{ section.settings.title }}"
               width="{{ section.settings.background_image.width }}"
               height="{{ section.settings.background_image.height }}"
+              class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay"
+              loading="lazy"
+            >
+          {%- else -%}
+            <img
+              src="https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=1887&auto=format&fit=crop"
+              alt="Sneaker Review"
+              width="1887"
+              height="1258"
               class="absolute inset-0 w-full h-full object-cover opacity-80 mix-blend-overlay"
               loading="lazy"
             >
@@ -38,7 +47,14 @@
                 loading="lazy"
               >
             {%- else -%}
-              {{ 'product-1' | placeholder_svg_tag: 'w-3/4 object-contain drop-shadow-2xl' }}
+              <img
+                src="https://images.unsplash.com/photo-1556906781-9a412961c28c?q=80&w=1887&auto=format&fit=crop"
+                alt="Sneaker Detail"
+                width="1887"
+                height="1258"
+                class="w-3/4 object-contain drop-shadow-2xl grayscale hover:grayscale-0 transition-all duration-500"
+                loading="lazy"
+              >
             {%- endif -%}
           </div>
         </div>
@@ -47,13 +63,20 @@
           <!-- Rating Stars -->
           <div class="flex items-center gap-2 mb-6">
             {%- assign full_stars = section.settings.rating | floor -%}
-            {%- assign has_half_star = section.settings.rating | modulo: 1 | times: 10 | floor -%}
+            {%- assign decimal_part = section.settings.rating | modulo: 1 -%}
+            {%- assign has_half_star = false -%}
             {%- assign half_star_position = full_stars | plus: 1 -%}
+            {%- if decimal_part >= 0.25 and decimal_part < 0.75 -%}
+              {%- assign has_half_star = true -%}
+            {%- elsif decimal_part >= 0.75 -%}
+              {%- assign full_stars = full_stars | plus: 1 -%}
+              {%- assign half_star_position = full_stars | plus: 1 -%}
+            {%- endif -%}
 
             {%- for i in (1..5) -%}
               {%- if i <= full_stars -%}
                 <iconify-icon icon="lucide:star" class="text-yellow-500" width="16"></iconify-icon>
-              {%- elsif i == half_star_position and has_half_star >= 5 -%}
+              {%- elsif i == half_star_position and has_half_star -%}
                 <iconify-icon icon="lucide:star-half" class="text-yellow-500" width="16"></iconify-icon>
               {%- else -%}
                 <iconify-icon icon="lucide:star" class="text-neutral-600" width="16"></iconify-icon>
@@ -66,7 +89,7 @@
           </div>
 
           <h2 class="md:text-4xl text-3xl font-semibold tracking-tight mb-6">
-            {{ section.settings.title | default: "Product Review" }}
+            {{ section.settings.title | default: "The Daily Driver: Air Zoom Pegasus 40 Review" }}
           </h2>
 
           {%- if section.settings.description != blank -%}
@@ -128,13 +151,13 @@
       "type": "text",
       "id": "title",
       "label": "Titulo",
-      "default": "The Daily Driver: Product Review"
+      "default": "The Daily Driver: Air Zoom Pegasus 40 Review"
     },
     {
       "type": "textarea",
       "id": "description",
       "label": "Descripcion",
-      "default": "We put this product to the test to see if it lives up to the hype. Here's our in-depth review and analysis."
+      "default": "The workhorse with wings returns. We put 100 miles on the latest Pegasus to see if the upgrades to the midfoot strap and foam density make it the most versatile runner of the year."
     },
     {
       "type": "range",

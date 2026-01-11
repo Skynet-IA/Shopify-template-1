@@ -1,9 +1,9 @@
 {% comment %}
   Urban Performance Lab - Hero Section
-  Adaptado del template1.html para Shopify
+  Pixel-perfect copy from plantilla.html
 {% endcomment %}
 
-<header class="urban-template md:pt-4 md:pb-32 pt-4 pr-6 pb-16 pl-6 bg-white text-neutral-900 antialiased">
+<header class="urban-template md:pt-48 md:pb-32 pt-32 pr-6 pb-16 pl-6">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row items-end gap-12">
       <div class="w-full md:w-1/2">
@@ -13,8 +13,8 @@
           </span>
         {%- endif -%}
 
-        <h1 class="md:text-7xl lg:text-8xl leading-[0.95] text-5xl font-semibold text-neutral-950 tracking-tighter font-editorial mb-8">
-          {{ section.settings.title | default: 'Performance Meets Everyday Style.' }}
+        <h1 class="md:text-7xl lg:text-8xl leading-[0.95] text-5xl font-semibold text-neutral-950 tracking-tighter mb-8" style="font-family: 'Playfair Display', serif;">
+          {{ section.settings.title | default: 'Performance <br>Meets Everyday Style.' }}
         </h1>
 
         {%- if section.settings.description != blank -%}
@@ -25,14 +25,14 @@
 
         <div class="flex flex-wrap gap-4">
           {%- if section.settings.button_label != blank -%}
-            <a href="{{ section.settings.button_link }}" class="bg-neutral-950 text-white px-8 py-4 rounded-md text-sm font-medium hover:bg-neutral-800 transition-all flex items-center gap-2">
+            <a href="{{ section.settings.button_link | default: '#shop' }}" class="bg-neutral-950 text-white px-8 py-4 rounded-md text-sm font-medium hover:bg-neutral-800 transition-all flex items-center gap-2">
               {{ section.settings.button_label }}
               <iconify-icon icon="lucide:arrow-right" width="16" stroke-width="1.5"></iconify-icon>
             </a>
           {%- endif -%}
 
           {%- if section.settings.button_label_2 != blank -%}
-            <a href="{{ section.settings.button_link_2 }}" class="bg-neutral-100 text-neutral-900 px-8 py-4 rounded-md text-sm font-medium hover:bg-neutral-200 transition-all">
+            <a href="{{ section.settings.button_link_2 | default: '#reviews' }}" class="bg-neutral-100 text-neutral-900 px-8 py-4 rounded-md text-sm font-medium hover:bg-neutral-200 transition-all">
               {{ section.settings.button_label_2 }}
             </a>
           {%- endif -%}
@@ -50,14 +50,20 @@
           {%- if section.settings.image != blank -%}
             <img
               src="{{ section.settings.image | image_url: width: 1200 }}"
-              alt="{{ section.settings.image.alt | default: section.settings.title }}"
+              alt="{{ section.settings.image.alt | default: 'Hero image' }}"
               width="{{ section.settings.image.width }}"
               height="{{ section.settings.image.height }}"
-              class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 {{ section.settings.image_filter }}"
+              class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 grayscale hover:grayscale-0"
               loading="eager"
             >
           {%- else -%}
-            {{ 'product-1' | placeholder_svg_tag: 'object-cover w-full h-full' }}
+            <img
+              src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=2070&auto=format&fit=crop"
+              alt="Nike Red Shoe"
+              width="2070"
+              height="1380"
+              class="object-cover w-full h-full transform group-hover:scale-105 transition-transform duration-700 grayscale hover:grayscale-0"
+            >
           {%- endif -%}
 
           {%- if section.settings.image_badge != blank -%}
@@ -80,71 +86,59 @@
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Subtitulo",
+      "label": "Subtitle",
       "default": "Curated Performance"
     },
     {
       "type": "textarea",
       "id": "title",
-      "label": "Titulo",
-      "default": "Performance Meets Everyday Style."
+      "label": "Title",
+      "default": "Performance <br>Meets Everyday Style."
     },
     {
       "type": "textarea",
       "id": "description",
-      "label": "Descripcion",
-      "default": "Explore the finest selection of footwear and apparel. Expert reviews, styling guides, and performance insights for the modern athlete."
+      "label": "Description",
+      "default": "Explore the finest selection of Nike footwear and apparel. Expert reviews, styling guides, and performance insights for the modern athlete."
     },
     {
       "type": "text",
       "id": "button_label",
-      "label": "Texto del boton principal",
+      "label": "Primary button text",
       "default": "Shop Collection"
     },
     {
       "type": "url",
       "id": "button_link",
-      "label": "Enlace del boton principal"
+      "label": "Primary button link"
     },
     {
       "type": "text",
       "id": "button_label_2",
-      "label": "Texto del boton secundario",
+      "label": "Secondary button text",
       "default": "Read Reviews"
     },
     {
       "type": "url",
       "id": "button_link_2",
-      "label": "Enlace del boton secundario"
+      "label": "Secondary button link"
     },
     {
       "type": "text",
       "id": "disclaimer",
-      "label": "Texto de disclaimer",
+      "label": "Disclaimer text",
       "default": "*We independently review products. We may earn a commission from affiliate links."
     },
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Imagen principal"
+      "label": "Hero image"
     },
     {
       "type": "text",
       "id": "image_badge",
-      "label": "Badge de imagen",
-      "default": "Featured: New Collection"
-    },
-    {
-      "type": "select",
-      "id": "image_filter",
-      "label": "Filtro de imagen",
-      "options": [
-        { "value": "", "label": "Ninguno" },
-        { "value": "grayscale hover:grayscale-0", "label": "Escala de grises (hover color)" },
-        { "value": "grayscale", "label": "Escala de grises" },
-        { "value": "sepia hover:sepia-0", "label": "Sepia (hover normal)" }
-      ],
-      "default": "grayscale hover:grayscale-0"
+      "label": "Image badge",
+      "default": "Featured: Air Max Series"
     }
   ],
   "presets": [

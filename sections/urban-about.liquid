@@ -1,9 +1,9 @@
 {% comment %}
   Urban Performance Lab - About Section
-  Seccion sobre la marca con estadisticas
+  Pixel-perfect replica of plantilla.html about section
 {% endcomment %}
 
-<section id="about" class="urban-template py-24 bg-neutral-50 text-neutral-900 antialiased">
+<section id="about" class="urban-template py-24 bg-neutral-50 text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black">
   <div class="max-w-3xl mx-auto px-6 text-center">
     {%- if section.settings.icon != blank -%}
       <iconify-icon icon="{{ section.settings.icon }}" width="32" class="text-neutral-900 mb-6 mx-auto block"></iconify-icon>
@@ -54,7 +54,7 @@
       "type": "textarea",
       "id": "description",
       "label": "Descripcion",
-      "default": "We are a digital destination dedicated to dissecting the engineering and design behind the world's leading brands. We are enthusiasts, athletes, and curators committed to helping you find the perfect gear for your pursuit of excellence."
+      "default": "Urban Performance Lab is a digital destination dedicated to dissecting the engineering and design behind the world's leading athletic brand. We are not a retailer. We are enthusiasts, athletes, and curators committed to helping you find the perfect gear for your pursuit of excellence."
     }
   ],
   "blocks": [

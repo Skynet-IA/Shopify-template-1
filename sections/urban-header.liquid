@@ -1,98 +1,56 @@
 {% comment %}
-  Urban Performance Lab - Header/Navigation Section
-  Header fijo con logo, menu, busqueda y carrito
+  Urban Performance Lab - Navigation
+  Pixel-perfect copy from plantilla.html
 {% endcomment %}
 
-<nav class="urban-template fixed top-0 left-0 right-0 z-[999] bg-white/80 backdrop-blur-md border-b border-neutral-100">
+<nav class="urban-template fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-neutral-100">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <!-- Logo -->
     <a href="{{ routes.root_url }}" class="uppercase text-lg font-semibold tracking-tighter">
       {%- if section.settings.logo != blank -%}
-        <img
-          src="{{ section.settings.logo | image_url: width: 200 }}"
-          alt="{{ shop.name }}"
-          width="{{ section.settings.logo.width }}"
-          height="{{ section.settings.logo.height }}"
-          class="h-8 w-auto"
-        >
+        <img src="{{ section.settings.logo | image_url: width: 200 }}" alt="{{ shop.name }}" width="200" height="32" class="h-8 w-auto">
       {%- else -%}
-        {{ section.settings.logo_text | default: shop.name }}
+        {{ section.settings.logo_text | default: 'Urban Performance Lab' }}
       {%- endif -%}
     </a>
 
-    <!-- Desktop Menu -->
     <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-500">
       {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'menu_link' -%}
-            <a href="{{ block.settings.link }}" class="hover:text-black transition-colors" {{ block.shopify_attributes }}>
-              {{ block.settings.label }}
-            </a>
-        {%- endcase -%}
+        <a href="{{ block.settings.link | default: '#' }}" class="hover:text-black transition-colors" {{ block.shopify_attributes }}>
+          {{ block.settings.label }}
+        </a>
       {%- endfor -%}
     </div>
 
-    <!-- Actions -->
     <div class="flex items-center gap-4">
-      <!-- Search Button -->
       {%- if section.settings.show_search -%}
-        <button
-          type="button"
-          class="text-neutral-500 hover:text-black transition-colors"
-          onclick="document.querySelector('.search-modal')?.showModal()"
-          aria-label="Search"
-        >
-          <iconify-icon icon="lucide:search" width="20" stroke-width="1.5"></iconify-icon>
+        <button class="text-neutral-500 hover:text-black transition-colors" type="button" aria-label="Search">
+          <iconify-icon icon="lucide:search" width="20" stroke-width="1.5" class=""></iconify-icon>
         </button>
       {%- endif -%}
 
-      <!-- CTA Button -->
       {%- if section.settings.cta_label != blank -%}
-        <a href="{{ section.settings.cta_link }}" class="hidden sm:block bg-black text-white px-4 py-2 rounded text-xs font-medium hover:bg-neutral-800 transition-colors">
+        <a href="{{ section.settings.cta_link | default: '#shop' }}" class="hidden sm:block bg-black text-white px-4 py-2 rounded text-xs font-medium hover:bg-neutral-800 transition-colors">
           {{ section.settings.cta_label }}
         </a>
       {%- endif -%}
 
-      <!-- Cart -->
-      {%- if section.settings.show_cart -%}
-        <a href="{{ routes.cart_url }}" class="text-neutral-500 hover:text-black transition-colors relative">
-          <iconify-icon icon="lucide:shopping-bag" width="20" stroke-width="1.5"></iconify-icon>
-          {%- if cart.item_count > 0 -%}
-            <span class="absolute -top-2 -right-2 bg-black text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
-              {{ cart.item_count }}
-            </span>
-          {%- endif -%}
-        </a>
-      {%- endif -%}
-
-      <!-- Mobile Menu Button -->
-      <button
-        type="button"
-        class="md:hidden text-neutral-500"
-        onclick="document.getElementById('urban-mobile-menu').classList.toggle('hidden')"
-        aria-label="Menu"
-      >
+      <button class="md:hidden text-neutral-500" type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" aria-label="Menu">
         <iconify-icon icon="lucide:menu" width="20" stroke-width="1.5"></iconify-icon>
       </button>
     </div>
   </div>
 
   <!-- Mobile Menu -->
-  <div id="urban-mobile-menu" class="hidden md:hidden bg-white border-t border-neutral-100 px-6 py-4">
-    <div class="flex flex-col gap-4 text-sm font-medium text-neutral-500">
-      {%- for block in section.blocks -%}
-        {%- case block.type -%}
-          {%- when 'menu_link' -%}
-            <a href="{{ block.settings.link }}" class="hover:text-black transition-colors py-2">
-              {{ block.settings.label }}
-            </a>
-        {%- endcase -%}
-      {%- endfor -%}
-    </div>
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-neutral-100 px-6 py-4">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link | default: '#' }}" class="block py-2 text-sm font-medium text-neutral-500 hover:text-black transition-colors">
+        {{ block.settings.label }}
+      </a>
+    {%- endfor -%}
   </div>
 </nav>
 
-<!-- Spacer para compensar el header fijo -->
+<!-- Spacer -->
 <div class="h-16"></div>
 
 {% schema %}
@@ -109,32 +67,25 @@
     {
       "type": "text",
       "id": "logo_text",
-      "label": "Texto del logo",
-      "default": "Urban Performance Lab",
-      "info": "Se usa si no hay imagen de logo"
+      "label": "Logo text",
+      "default": "Urban Performance Lab"
     },
     {
       "type": "checkbox",
       "id": "show_search",
-      "label": "Mostrar busqueda",
-      "default": true
-    },
-    {
-      "type": "checkbox",
-      "id": "show_cart",
-      "label": "Mostrar carrito",
+      "label": "Show search",
       "default": true
     },
     {
       "type": "text",
       "id": "cta_label",
-      "label": "Texto del boton CTA",
+      "label": "CTA button text",
       "default": "Top Picks"
     },
     {
       "type": "url",
       "id": "cta_link",
-      "label": "Enlace del boton CTA"
+      "label": "CTA button link"
     }
   ],
   "blocks": [
@@ -145,13 +96,13 @@
         {
           "type": "text",
           "id": "label",
-          "label": "Texto",
+          "label": "Label",
           "default": "Link"
         },
         {
           "type": "url",
           "id": "link",
-          "label": "Enlace"
+          "label": "Link"
         }
       ]
     }
@@ -160,34 +111,10 @@
     {
       "name": "Urban Header",
       "blocks": [
-        {
-          "type": "menu_link",
-          "settings": {
-            "label": "Collections",
-            "link": "#collections"
-          }
-        },
-        {
-          "type": "menu_link",
-          "settings": {
-            "label": "Reviews",
-            "link": "#reviews"
-          }
-        },
-        {
-          "type": "menu_link",
-          "settings": {
-            "label": "Guides",
-            "link": "#guides"
-          }
-        },
-        {
-          "type": "menu_link",
-          "settings": {
-            "label": "About",
-            "link": "#about"
-          }
-        }
+        { "type": "menu_link", "settings": { "label": "Collections", "link": "#collections" } },
+        { "type": "menu_link", "settings": { "label": "Reviews", "link": "#reviews" } },
+        { "type": "menu_link", "settings": { "label": "Guides", "link": "#guides" } },
+        { "type": "menu_link", "settings": { "label": "About", "link": "#about" } }
       ]
     }
   ]

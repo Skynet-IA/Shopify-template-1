@@ -1,9 +1,9 @@
 {% comment %}
   Urban Performance Lab - Blog/Guides Section
-  Grid de articulos del blog
+  Pixel-perfect replica of plantilla.html guides section
 {% endcomment %}
 
-<section id="guides" class="urban-template py-24 border-b border-neutral-100 bg-white text-neutral-900 antialiased">
+<section id="guides" class="urban-template py-24 border-b border-neutral-100 bg-white text-neutral-900 antialiased selection:bg-neutral-200 selection:text-black">
   <div class="max-w-7xl mx-auto px-6">
     <h2 class="text-3xl font-semibold tracking-tight mb-12">{{ section.settings.title | default: 'Style & Performance Guides' }}</h2>
 
@@ -53,7 +53,16 @@
                       loading="lazy"
                     >
                   {%- else -%}
-                    {{ 'image' | placeholder_svg_tag: 'w-full h-full object-cover' }}
+                    {%- assign placeholder_images = "https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=2128&auto=format&fit=crop,https://images.unsplash.com/photo-1515955656352-a1fa3ffcd111?q=80&w=2070&auto=format&fit=crop,https://images.unsplash.com/photo-1552346154-21d32810aba3?q=80&w=2070&auto=format&fit=crop" | split: "," -%}
+                    {%- assign block_index = forloop.index0 | modulo: 3 -%}
+                    <img
+                      src="{{ placeholder_images[block_index] }}"
+                      alt="{{ block.settings.title }}"
+                      width="800"
+                      height="450"
+                      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    >
                   {%- endif -%}
                 </a>
                 <div class="flex items-center gap-3 text-xs text-neutral-500 mb-2">
@@ -157,8 +166,8 @@
           "settings": {
             "tag": "Training",
             "read_time": "5 min read",
-            "title": "Best Shoes for HIIT Workouts in 2024",
-            "description": "Stability is key when jumping and lifting. We break down the top models for your gym routine."
+            "title": "Best Nike Shoes for HIIT Workouts in 2024",
+            "description": "Stability is key when jumping and lifting. We break down the top Metcon and SuperRep models for your gym routine."
           }
         },
         {
@@ -167,7 +176,7 @@
             "tag": "Running",
             "read_time": "8 min read",
             "title": "Beginner's Guide to Running Gear",
-            "description": "Starting your running journey? Here's exactly what you need to hit the pavement comfortably."
+            "description": "Starting your running journey? Here's exactly what you need (and what you don't) to hit the pavement comfortably."
           }
         },
         {
@@ -175,7 +184,7 @@
           "settings": {
             "tag": "Style",
             "read_time": "4 min read",
-            "title": "How to Style Sneakers for Everyday Wear",
+            "title": "How to Style Air Jordans for Everyday Wear",
             "description": "Elevate your street style. Tips on pairing chunky silhouettes with modern denim and cargo trousers."
           }
         }
